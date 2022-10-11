@@ -1,0 +1,125 @@
+.toast-server {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 20px 35px 20px 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #ffcb5b;
+  overflow: hidden;
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+
+.toast-server.active {
+  transform: translateX(0%);
+}
+
+.toast-server .toast-server-content {
+  display: flex;
+  align-items: center;
+}
+
+.toast-server-content .check-Issue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  background-color: #e71a1a;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 100%;
+}
+
+.toast-server-content .check-Success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  background-color: #068b23;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 100%;
+}
+
+.toast-server-content .message {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+.message .text {
+  font-size: 20px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.message .text.text-1 {
+  font-weight: 600;
+  color: #333;
+}
+
+.toast-server .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.toast-server .close:hover {
+  opacity: 1;
+}
+
+.toast-server .progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: #ddd;
+}
+
+.toast-server .progress:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffcb5b;
+}
+
+.progress.active:before {
+  animation: progress 6s linear forwards;
+}
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
+}
+
+.btn_toast-server {
+  padding: 12px 20px;
+  font-size: 20px;
+  outline: none;
+  border: none;
+  background-color: #ffcb5b;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn_toast-server:hover {
+  background-color: #ffcb5b;
+}
+
+.toast-server.active ~ button {
+  pointer-events: none;
+}

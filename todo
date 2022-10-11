@@ -1,0 +1,7 @@
+Delivery option: check where item now + require to delivery somewhere 
+Restructure models -> item(create Delivery info: where now, status, where needs to be(if needs)) + clear mongodb collection.items 
+Restructure models -> users(create image object, not required)
+можно скрывать чето от пользователей путем проверки роли пользователя и навешивания свойства display:none
+
+Статус: свободно, заказана доставка, доставляется
+Если: статус в юи доставляется то убрать кнопки управления

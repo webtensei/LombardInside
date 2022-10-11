@@ -1,0 +1,288 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/preloader.css" />
+    <link rel="stylesheet" href="css/ui.css" />
+    <link rel="stylesheet" href="css/serverMessages.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <title>Дэш</title>
+  </head>
+
+  <body id="body-pd">
+    <div class="preloader">
+      <div class="loader">
+        <div class="loader-outter"></div>
+        <div class="loader-inner"></div>
+
+        <div class="indicator">
+          <svg width="16px" height="12px">
+            <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+            <polyline
+              id="front"
+              points="1 6 4 6 6 11 10 1 12 6 15 6"
+            ></polyline>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <header class="header" id="header">
+      <div class="header_toggle">
+        <i class="bx bx-menu" id="header-toggle"></i>
+      </div>
+      <div class="header_img">
+        <!--<img src="https://i.imgur.com/LQTcMZr.png" alt="" /> -->
+      </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div>
+          <a href="#" class="nav_logo">
+            <i class="bx bx-layer nav_logo-icon"></i>
+            <span class="nav_name">Lombard Inside</span>
+          </a>
+          <div class="nav_list">
+            <a href="/ui" class="nav_link">
+              <i class="bx bx-grid-alt nav_icon"></i>
+              <span class="nav_name">Дэш</span>
+            </a>
+            <% payload = JSON.parse(payload)%> <% if (payload.roles == "ADMIN")
+            {%>
+            <a href="#" class="nav_link active">
+              <i class="bx bx-package nav_icon"></i>
+              <span class="nav_name">Доставка</span>
+            </a>
+            <a href="/users" class="nav_link">
+              <i class="bx bx-user nav_icon"></i>
+              <span class="nav_name">Пользователи</span>
+            </a>
+            <% }else if (payload.roles == "DELIVERY"){%>
+            <a href="#" class="nav_link active">
+              <i class="bx bx-package nav_icon"></i>
+              <span class="nav_name">Доставка</span>
+            </a>
+            <%}%>
+            <a href="#" class="nav_link">
+              <i class="bx bx-line-chart nav_icon"></i>
+              <span class="nav_name">Статистика</span>
+            </a>
+            <a href="#" class="nav_link">
+              <i class="bx bx-printer nav_icon"></i>
+              <span class="nav_name">Распечатать</span>
+            </a>
+            <a href="#" class="nav_link">
+              <i class="bx bx-cog nav_icon"></i>
+              <span class="nav_name">Настройки</span>
+            </a>
+          </div>
+        </div>
+        <a href="/logout" class="nav_link">
+          <i class="bx bx-log-out nav_icon"></i>
+          <span class="nav_name">Выйти</span>
+        </a>
+      </nav>
+    </div>
+    <!--Container Main start-->
+    <div class="headerbugFix"></div>
+    <div id="content-wrapper position-static" class="content-wrapper">
+      <div class="hstack gap-2">
+        <h2>Запросы на доставку</h2>
+      </div>
+      <div class="border-top my-3"></div>
+      <div class="container-fluid mb-5">
+        <table id="example" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Артикул</th>
+              <th>Название</th>
+              <th>Изображение</th>
+              <th>Адрес</th>
+              <th>Требуется доставка</th>
+              <th>Статус</th>
+              <th>ИЗМЕНИТЬ СТАТУС</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (AllItems.length) { %> <% AllItems.forEach(({_id,
+            Image,Articul,Type,Material,Weight,Price,Status,Now,Delivery,})=>{%>
+            <% if (Status == "deliveryThis" || Status == "deliveryNow") {%>
+            <tr>
+              <td><%= Articul %></td>
+              <td><%= Type %></td>
+              <td>
+                <%if (Image) {%>
+                <a
+                  href="<%= Image %>"
+                  style="color: #ffcb5b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Показать
+                </a>
+                <% } else{%> Отсутствует <%}%>
+              </td>
+              <td><%= Now %></td>
+              <td><%if (Delivery) {%> <%=Delivery%> <% } else{%> - <%}%></td>
+              <td>
+                <%if(Status == "deliveryThis"){%>
+                <i class="bx bx-time-five" style="color: orange"></i> Запрошена
+                доставка <%} else if(Status == "deliveryNow"){%>
+                <i class="bx bx-package" style="color: red"></i> Доставляется
+                <%}%>
+              </td>
+              <td>
+                <%if(Status == "deliveryThis"){%>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#itemInDelivery-<%=_id%>"
+                >
+                  <i class="bx bxs-package">Доставляется</i>
+                </button>
+                <div
+                  class="modal fade"
+                  id="itemInDelivery-<%=_id%>"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Уведомление
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        Изменить статус предмета, артикул: <%=Articul %> на
+                        "Доставляется"?
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Отмена
+                        </button>
+                        <a href="itemInDelivery/<%=_id%>"
+                          ><button
+                            type="button"
+                            class="btn btn-outline-success"
+                          >
+                            Подтвердить
+                          </button></a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <%} else if(Status == "deliveryNow"){%>
+                <button
+                  type="button"
+                  class="btn btn-outline-success btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#itemDelivered-<%=_id%>"
+                >
+                  <i class="bx bx-task">Доставлено</i>
+                </button>
+                <div
+                  class="modal fade"
+                  id="itemDelivered-<%=_id%>"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Уведомление
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        Изменить статус предмета, артикул: <%=Articul %> на
+                        "Доставлено"?
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Отмена
+                        </button>
+                        <a href="itemDelivered/<%=_id%>"
+                          ><button
+                            type="button"
+                            class="btn btn-outline-success"
+                          >
+                            Подтвердить
+                          </button></a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <%}%>
+            </tr>
+            <% } %> <% }) %> <% } %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Артикул</th>
+              <th>Название</th>
+              <th>Изображение</th>
+              <th>Адрес</th>
+              <th>Требуется доставка</th>
+              <th>Статус</th>
+              <th>ИЗМЕНИТЬ СТАТУС</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <script src="js/preloader.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/datatable.js"></script>
+    <script src="js/serverMessages.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+  </body>
+</html>

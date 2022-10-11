@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <title>LombardInside | Вход в систему</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/serverMessages.css" />
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <img class="wave" src="img/wave.png" />
+    <div class="container">
+      <div class="img">
+        <img src="img/bg.svg" />
+      </div>
+      <div class="login-content">
+        <form
+          class="login_form"
+          action="/"
+          method="post"
+          name="form"
+          onsubmit="return validated()"
+        >
+          <img src="img/account.svg" />
+          <h2 class="title"></h2>
+          <div class="input-div one">
+            <div class="i">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="div">
+              <h5>Логин</h5>
+              <input
+                class="input"
+                autocomplete="off"
+                type="text"
+                name="username"
+              />
+            </div>
+          </div>
+          <div class="input-div pass">
+            <div class="i">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div class="div">
+              <h5>Пароль</h5>
+              <input class="input" type="password" name="password" />
+            </div>
+          </div>
+          <a href="#">Забыли пароль?</a>
+          <input type="submit" class="btn" value="Войти" />
+          <div id="username_error">Пожалуйста, введите логин</div>
+          <div id="pass_error">Пожалуйста, введите пароль</div>
+          <%if (typeof(message) == "undefined") {%> <%} else {%>
+          <div class="issueDetector"></div>
+          <div class="toast-server">
+            <div class="toast-server-content">
+              <i
+                class="fas fa-solid fa-<%=message.iconStyle %> <%= message.type %>"
+              ></i>
+              <div class="message">
+                <span class="text text-1"><%= message.intro %></span>
+                <span class="text text-2"><%= message.message %></span>
+              </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+            <div class="progress"></div>
+          </div>
+
+          <%}%>
+        </form>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/clientValidation.js"></script>
+    <script type="text/javascript" src="js/serverMessages.js"></script>
+    <script>
+      const renderedpage = require("js/render.js");
+    </script>
+  </body>
+</html>

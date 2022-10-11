@@ -1,0 +1,10 @@
+.page-item.active .page-link {
+  background-color: #ffcb5b !important;
+  border: 1px solid #ffcb5b;
+}
+.page-link {
+  color: rgb(0, 0, 0) !important;
+}
+body {
+  --bs-pagination-active-bg: #ffcb5b !important;
+}
